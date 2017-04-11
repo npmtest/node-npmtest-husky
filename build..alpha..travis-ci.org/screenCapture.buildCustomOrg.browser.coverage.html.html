@@ -1,0 +1,937 @@
+<html lang="en"><head>
+    <title>Code coverage report for node-npmtest-husky/husky/src/index.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-husky">npmtest-husky (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-husky/husky/src/index.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">19.75% <small>(16 / 81)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 28)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 11)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">20% <small>(16 / 80)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> » <a href="index.html">node-npmtest-husky/husky/src/</a> » index.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tbody><tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var fs = require('fs')
+var path = require('path')
+var normalize = require('normalize-path')
+var findParentDir = require('find-parent-dir')
+var hooks = require('./hooks.json')
+var pkg = require('../package.json')
+&nbsp;
+<span class="fstat-no" title="function not covered">function write (filename, data) {</span>
+<span class="cstat-no" title="statement not covered">  fs.writeFileSync(filename, data)</span>
+<span class="cstat-no" title="statement not covered">  fs.chmodSync(filename, parseInt('0755', 8))</span>
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function isHusky (filename) {</span>
+<span class="cstat-no" title="statement not covered">  var data = fs.readFileSync(filename, 'utf-8')</span>
+<span class="cstat-no" title="statement not covered">  return data.indexOf('#husky') !== -1</span>
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function isGhooks (filename) {</span>
+<span class="cstat-no" title="statement not covered">  var data = fs.readFileSync(filename, 'utf-8')</span>
+<span class="cstat-no" title="statement not covered">  return data.indexOf('// Generated by ghooks. Do not edit this file.') !== -1</span>
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function findHooksDir (dirname) {</span>
+<span class="cstat-no" title="statement not covered">  var dir = findParentDir.sync(dirname, '.git')</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  if (dir) {</span>
+<span class="cstat-no" title="statement not covered">    var gitDir = path.join(dir, '.git')</span>
+<span class="cstat-no" title="statement not covered">    var stats = fs.lstatSync(gitDir)</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">    if (stats.isFile()) {</span>
+      // Expect following format
+      // git: pathToGit
+<span class="cstat-no" title="statement not covered">      gitDir = fs</span>
+        .readFileSync(gitDir, 'utf-8')
+        .split(':')[1]
+        .trim()
+&nbsp;
+<span class="cstat-no" title="statement not covered">      return path.join(dir, gitDir, 'hooks')</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered">    return path.join(gitDir, 'hooks')</span>
+  }
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function getHookScript (hookName, relativePath, cmd) {</span>
+    // On Windows normalize path (i.e. convert \ to /)
+<span class="cstat-no" title="statement not covered">  var normalizedPath = normalize(relativePath)</span>
+&nbsp;
+  // Hook script
+<span class="cstat-no" title="statement not covered">  var arr = [</span>
+    '#!/bin/sh',
+    '#husky ' + pkg.version,
+    '',
+    'command_exists () {',
+    '  command -v "$1" &gt;/dev/null 2&gt;&amp;1',
+    '}',
+    '',
+&nbsp;
+    'load_nvm () {',
+    '  export $1=$2',
+    '  [ -s "$2/nvm.sh" ] &amp;&amp; . $2/nvm.sh',
+    '  command_exists nvm &amp;&amp; [ -f .nvmrc ] &amp;&amp; nvm use',
+    '}',
+    '',
+&nbsp;
+    // https://github.com/typicode/husky/issues/76
+    'has_hook_script () {',
+    '  [ -f package.json ] &amp;&amp; cat package.json | grep -q "\\"$1\\"[[:space:]]*:"',
+    '}',
+    ''
+  ]
+&nbsp;
+<span class="cstat-no" title="statement not covered">  arr = arr.concat([</span>
+    'cd ' + normalizedPath,
+    '',
+    // Fix for issue #16 #24
+    // If script is not defined in package.json then exit
+    'has_hook_script ' + cmd + ' || exit 0',
+    ''
+  ])
+&nbsp;
+  // On OS X and Linux, try to use nvm if it's installed
+<span class="cstat-no" title="statement not covered">  if (process.platform !== 'win32') {</span>
+    // ~ is unavaible, so $HOME is used
+<span class="cstat-no" title="statement not covered">    var home = process.env.HOME</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">    if (process.platform === 'darwin') {</span>
+      // Add
+      // Brew standard installation path /usr/local/bin
+      // Node standard installation path /usr/local
+      // for GUI apps
+      // https://github.com/typicode/husky/issues/49
+<span class="cstat-no" title="statement not covered">      arr = arr.concat([</span>
+        'export PATH=$PATH:/usr/local/bin:/usr/local'
+      ])
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered">    if (process.platform === 'darwin') {</span>
+<span class="cstat-no" title="statement not covered">      arr = arr.concat([</span>
+        // Load nvm with BREW_NVM_DIR set to /usr/local/opt/nvm
+        'load_nvm BREW_NVM_DIR /usr/local/opt/nvm',
+        ''
+      ])
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered">    arr = arr.concat([</span>
+      // Load nvm with NVM_DIR set to $HOME/.nvm
+      'load_nvm NVM_DIR ' + home + '/.nvm',
+      ''
+    ])
+  } else {
+    // Add
+    // Node standard installation path /c/Program Files/nodejs
+    // for GUI apps
+    // https://github.com/typicode/husky/issues/49
+<span class="cstat-no" title="statement not covered">    arr = arr.concat([</span>
+      'export PATH="$PATH:/c/Program Files/nodejs"'
+    ])
+  }
+&nbsp;
+  // Can't find npm message
+<span class="cstat-no" title="statement not covered">  var npmNotFound = '&gt; husky - Can\'t find npm in PATH. Skipping ' + cmd + ' script in package.json'</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  var scriptName = hookName.replace(/-/g, '')</span>
+<span class="cstat-no" title="statement not covered">  arr = arr.concat([</span>
+    // Test if npm is in PATH
+    'command_exists npm || {',
+    '  echo &gt;&amp;2 "' + npmNotFound + '"',
+    '  exit 0',
+    '}',
+    '',
+&nbsp;
+    // Run script
+    'echo',
+    'echo "&gt; husky - npm run -s ' + cmd + '"',
+    'echo',
+    '',
+&nbsp;
+    'export GIT_PARAMS="$*"',
+    'npm run -s ' + cmd + ' || {',
+    '  echo',
+    '  echo "&gt; husky - ' + hookName + ' hook failed (add --no-verify to bypass)"',
+    '  echo "&gt; husky - to debug, use \'npm run ' + scriptName + '\'"',
+    '  exit 1',
+    '}',
+    ''
+  ])
+&nbsp;
+<span class="cstat-no" title="statement not covered">  return arr.join('\n')</span>
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function createHook (huskyDir, hooksDir, hookName, cmd) {</span>
+<span class="cstat-no" title="statement not covered">  var filename = path.join(hooksDir, hookName)</span>
+&nbsp;
+  // Assuming that this file is in node_modules/husky
+<span class="cstat-no" title="statement not covered">  var packageDir = path.join(huskyDir, '..', '..')</span>
+&nbsp;
+  // Get project directory
+  // When used in submodule, the project dir is the first .git that is found
+<span class="cstat-no" title="statement not covered">  var projectDir = findParentDir.sync(huskyDir, '.git')</span>
+&nbsp;
+  // In order to support projects with package.json in a different directory
+  // than .git, find relative path from project directory to package.json
+<span class="cstat-no" title="statement not covered">  var relativePath = path.join('.', path.relative(projectDir, packageDir))</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  var hookScript = getHookScript(hookName, relativePath, cmd)</span>
+&nbsp;
+  // Create hooks directory if needed
+<span class="cstat-no" title="statement not covered">  if (!fs.existsSync(hooksDir)) <span class="cstat-no" title="statement not covered">fs.mkdirSync(hooksDir)</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  if (!fs.existsSync(filename)) {</span>
+<span class="cstat-no" title="statement not covered">    return write(filename, hookScript)</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered">  if (isGhooks(filename)) {</span>
+<span class="cstat-no" title="statement not covered">    console.log('migrating ghooks ' + hookName + ' script')</span>
+<span class="cstat-no" title="statement not covered">    return write(filename, hookScript)</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered">  if (isHusky(filename)) {</span>
+<span class="cstat-no" title="statement not covered">    return write(filename, hookScript)</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered">  console.log('skipping ' + hookName + ' hook (existing user hook)')</span>
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function removeHook (dir, name) {</span>
+<span class="cstat-no" title="statement not covered">  var filename = dir + '/' + name</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  if (fs.existsSync(filename) &amp;&amp; isHusky(filename)) {</span>
+<span class="cstat-no" title="statement not covered">    fs.unlinkSync(dir + '/' + name)</span>
+  }
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function installFrom (huskyDir) {</span>
+<span class="cstat-no" title="statement not covered">  try {</span>
+<span class="cstat-no" title="statement not covered">    var isInSubNodeModule = (huskyDir.match(/node_modules/g) || []).length &gt; 1</span>
+<span class="cstat-no" title="statement not covered">    if (isInSubNodeModule) {</span>
+<span class="cstat-no" title="statement not covered">      return console.log(</span>
+        'Trying to install from sub \'node_module\' directory,',
+        'skipping Git hooks installation'
+      )
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered">    var hooksDir = findHooksDir(huskyDir)</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">    if (hooksDir) {</span>
+<span class="cstat-no" title="statement not covered">      hooks.forEach(<span class="fstat-no" title="function not covered">function (hookName) {</span></span>
+<span class="cstat-no" title="statement not covered">        var npmScriptName = hookName.replace(/-/g, '')</span>
+<span class="cstat-no" title="statement not covered">        createHook(huskyDir, hooksDir, hookName, npmScriptName)</span>
+      })
+<span class="cstat-no" title="statement not covered">      console.log('done\n')</span>
+    } else {
+<span class="cstat-no" title="statement not covered">      console.log('Can\'t find .git directory, skipping Git hooks installation')</span>
+    }
+  } catch (e) {
+<span class="cstat-no" title="statement not covered">    console.error(e)</span>
+  }
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function uninstallFrom (huskyDir) {</span>
+<span class="cstat-no" title="statement not covered">  try {</span>
+<span class="cstat-no" title="statement not covered">    var hooksDir = findHooksDir(huskyDir)</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">    hooks.forEach(<span class="fstat-no" title="function not covered">function (hookName) {</span></span>
+<span class="cstat-no" title="statement not covered">      removeHook(hooksDir, hookName)</span>
+    })
+<span class="cstat-no" title="statement not covered">    console.log('done\n')</span>
+  } catch (e) {
+<span class="cstat-no" title="statement not covered">    console.error(e)</span>
+  }
+}
+&nbsp;
+module.exports = {
+  installFrom: installFrom,
+  uninstallFrom: uninstallFrom
+}
+&nbsp;
+&nbsp;</pre></td></tr>
+</tbody></table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Tue Apr 11 2017 12:51:47 GMT+0000 (UTC)</div>
+</div>
+
+
+</body></html>
