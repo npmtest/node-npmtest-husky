@@ -1,4 +1,7 @@
-# test coverage for  [husky (v0.13.3)](https://github.com/typicode/husky)  [![npm package](https://img.shields.io/npm/v/npmtest-husky.svg?style=flat-square)](https://www.npmjs.org/package/npmtest-husky) [![travis-ci.org build-status](https://api.travis-ci.org/npmtest/node-npmtest-husky.svg)](https://travis-ci.org/npmtest/node-npmtest-husky)
+# npmtest-husky
+
+#### test coverage for  [husky (v0.13.3)](https://github.com/typicode/husky)  [![npm package](https://img.shields.io/npm/v/npmtest-husky.svg?style=flat-square)](https://www.npmjs.org/package/npmtest-husky) [![travis-ci.org build-status](https://api.travis-ci.org/npmtest/node-npmtest-husky.svg)](https://travis-ci.org/npmtest/node-npmtest-husky)
+
 #### Prevents bad commit or push (git hooks, pre-commit/precommit, pre-push/prepush, post-merge/postmerge and all that stuff...)
 
 [![NPM](https://nodei.co/npm/husky.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/husky)
